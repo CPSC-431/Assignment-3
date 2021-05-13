@@ -1,5 +1,5 @@
 var pollServer = function() {
-    $.get('http://ecs.fullerton.edu/~cs431s/Chapter23/chat.php', function(result) {
+    $.get('http://ecs.fullerton.edu/~cs431s41/Assignment3/chat.php', function(result) {
         
         if(!result.success) {
             console.log("Error polling server for new messages!");
