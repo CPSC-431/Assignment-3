@@ -39,6 +39,7 @@ $('#sendMessageBtn').on('click', function(event) {
     event.preventDefault();
     
     var message = $('#chatMessage').val();
+    var chat_username = $('#chat_usrname').val();
     
     $.post('chat.php', {
         'message' : message
