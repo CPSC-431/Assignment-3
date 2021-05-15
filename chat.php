@@ -4,7 +4,7 @@ ob_start();
 header("Content-type: application/json");
 date_default_timezone_set('UTC');
 //connect to database
-$db = mysqli_connect('mariadb', 'cs431sXX', 'password', 'cs431sXX');
+$db = mysqli_connect('mariadb', 'cs431s41', 'EeChe9sh', 'cs431s41');
 if (mysqli_connect_errno()) {
    echo '<p>Error: Could not connect to database.<br/>
    Please try again later.</p>';
@@ -35,7 +35,7 @@ try {
            $query = "SELECT * FROM chatlog WHERE date_created >= ".$lastPoll;
            $stmt = $db->prepare($query);
            $stmt->execute();
-           $stmt->bind_result($id, $message, $session_id, $date_created);
+           $stmt->bind_result($id, $message, $session_id, $date_created, $chat_usrname, $color);
            $result = get_result( $stmt);
            $newChats = [];
            while($chat = array_shift($result)) {
@@ -56,11 +56,14 @@ try {
            ]);
            exit;
         case 'send':
+            $chat_username = isset($_POST['chat_usrname']) ? $_POST['chat_username'] : ' ';
+            $chat_username = strip_tags($chat_username);
             $message = isset($_POST['message']) ? $_POST['message'] : '';            
             $message = strip_tags($message);
-            $query = "INSERT INTO chatlog (message, sent_by, date_created) VALUES(?, ?, ?)";
+            $color = isset($_POST['color']) ? $_POST['color'] : '';
+            $query = "INSERT INTO chatlog (message, sent_by, date_created, chat_username, color) VALUES(?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('ssi', $message, $session_id, $currentTime); 
+            $stmt->bind_param('ssi', $message, $session_id, $currentTime, $chat_username, $color); 
             $stmt->execute(); 
             print json_encode(['success' => true]);
             exit;
