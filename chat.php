@@ -32,7 +32,7 @@ try {
     $action = isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'POST') ? 'send' : 'poll';
     switch($action) {
         case 'poll':
-           $query = "SELECT * FROM chatlog WHERE date_created >= ".$lastPoll;
+           $query = "SELECT * FROM `chatlog` WHERE date_created >= ".$lastPoll;
            $stmt = $db->prepare($query);
            $stmt->execute();
            $stmt->bind_result($id, $message, $session_id, $date_created, $chat_usrname, $color);
@@ -56,14 +56,14 @@ try {
            ]);
            exit;
         case 'send':
-            $chat_username = isset($_POST['chat_usrname']) ? $_POST['chat_username'] : ' ';
-            $chat_username = strip_tags($chat_username);
+            $chat_usrname = isset($_POST['chat_usrname']) ? $_POST['chat_usrname'] : ' ';
+            $chat_usrname = strip_tags($chat_usrname);
             $message = isset($_POST['message']) ? $_POST['message'] : '';            
             $message = strip_tags($message);
             $color = isset($_POST['color']) ? $_POST['color'] : '';
-            $query = "INSERT INTO chatlog (message, sent_by, date_created, chat_username, color) VALUES(?, ?, ?, ?, ?)";
+            $query = "INSERT INTO `chatlog` (message, sent_by, date_created, chat_usrname, color) VALUES(?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('ssi', $message, $session_id, $currentTime, $chat_username, $color); 
+            $stmt->bind_param('ssiss', $message, $session_id, $currentTime, $chat_usrname, $color); 
             $stmt->execute(); 
             print json_encode(['success' => true]);
             exit;
