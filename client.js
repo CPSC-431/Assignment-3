@@ -9,6 +9,7 @@ var pollServer = function() {
         $.each(result.messages, function(idx) {
             
             var chatBubble;
+	const root = document.documentElement;
             
             if(this.sent_by == 'self') {
                 chatBubble = $('<div class="row bubble-sent pull-right">' + 
@@ -39,16 +40,17 @@ $('#sendMessageBtn').on('click', function(event) {
     event.preventDefault();
     
     var message = $('#chatMessage').val();
+    var chat_username = $('#chat_username').val();
+    var color = $('#color').val();
     
     $.post('chat.php', {
         'message' : message,
-        'color': color,
-        'chat_usrname': chat_usrname    
-}, function(result) {
+        'chat_username' : chat_username,
+        'color' : color
+    }, function(result) {
         
         $('#sendMessageBtn').toggleClass('active');
-        
-        
+          
         if(!result.success) {
             alert("There was an error sending your message");
         } else {
