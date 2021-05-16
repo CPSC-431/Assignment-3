@@ -1,5 +1,5 @@
 var pollServer = function() {
-    $.get('http://ecs.fullerton.edu/~cs431s41/Assignment3/chat.php', function(result) {
+    $.get('http://ecs.fullerton.edu/~cs431s41/chat/chat.php', function(result) {
         
         if(!result.success) {
             console.log("Error polling server for new messages!");
@@ -39,11 +39,12 @@ $('#sendMessageBtn').on('click', function(event) {
     event.preventDefault();
     
     var message = $('#chatMessage').val();
-    var chat_username = $('#chat_usrname').val();
     
     $.post('chat.php', {
-        'message' : message
-    }, function(result) {
+        'message' : message,
+        'color': color,
+        'chat_usrname': chat_usrname    
+}, function(result) {
         
         $('#sendMessageBtn').toggleClass('active');
         
