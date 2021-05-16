@@ -5,7 +5,7 @@
 - Emiliano Arranaga | CWID: 888006756
 
 ## Project URL(s):
-- http://ecs.fullerton.edu/~cs431s41/Assignment3/
+- (insert url here)
 
 ## Contribution's:
 - Emiliano -
