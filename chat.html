@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AJAX Chat</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="style.css">
+
+        <!-- got the styling pushed to its separate page -->
+        <link rel="stylesheet" href="style.css"> 
+        <title>AJAX Chat</title> 
     </head>
     <body>
     <h1 style="text-align:center">AJAX Chat</h1>
@@ -16,7 +20,7 @@
             <div class="panel-body" id="chatPanel">
             </div>
             <div class="panel-footer">
-                <div class="input-group">
+                <div class="input-group"> <!-- displays messaging page -->
                       <input type="text" class="form-control" id="chatMessage" placeholder="Send a message here..."/>
                       <span class="input-group-btn">
                           <button id="sendMessageBtn" class="btn btn-primary has-spinner" type="button">

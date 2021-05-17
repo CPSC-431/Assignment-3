@@ -10,17 +10,15 @@ var pollServer = function() {
             
             var chatBubble;
 	const root = document.documentElement;
-            
+
+
+	// should identify who sends what and assigns the color to each person's text -> displays on the chat app            
             if(this.sent_by == 'self') {
-                var colorStyle = '<div class="row bubble-sent pull-right" style= "background: #' 
-                + this.color + '; border-color: #' + this.color + '; --color: #' + this.color + '; color: white">';
-                chatBubble = $(colorStyle +
-                               'me: ' + this.message +
-                               '</div><div class="clearfix"></div>');
+                var colorText = '<div class="row bubble-sent pull-right" style= "background: #' + this.color + '; border-color: #' + this.color + '; --color: #' + this.color + '; color: white">';
+                chatBubble = $(colorText + 'me: ' + this.message + '</div><div class="clearfix"></div>');
             } else {
-                var cstyle = '<div class="row bubble-recv" style="background: #'
-                + this.color + '; --color: #' + this.color + '; color: white">';
-                chatBubble = $(cstyle + this.chat_username + ": " + this.message + '</div><div class="clearfix"></div>');
+                var colorStyle = '<div class="row bubble-recv" style="background: #' + this.color + '; --color: #' + this.color + '; color: white">';
+                chatBubble = $(colorStyle + this.chat_username + ": " + this.message + '</div><div class="clearfix"></div>');
 							   
             }            
             $('#chatPanel').append(chatBubble);
@@ -43,10 +41,11 @@ $('#sendMessageBtn').on('click', function(event) {
     event.preventDefault();
     
     var message = $('#chatMessage').val();
-    var chatUsername = $('#chatUsername').val();
+    // var chatUsername = $('#chatUsername').val();
 
     let params = new URLSearchParams(location.search);
     var color = params.get('color');
+    var chatUsername = params.get('chatUsername');
     
     $.post('chat.php', {
         'message' : message,

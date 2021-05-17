@@ -28,6 +28,7 @@ function get_result( $Statement ) {
     return $RESULT;
 }
 
+// push all chat information to display who texted what
 try { 
     $currentTime = time();
     $session_id = session_id();    
@@ -41,7 +42,7 @@ try {
            $stmt->bind_result($id, $message, $session_id, $date_created, $chatUsername, $color);
            $result = get_result( $stmt);
            $newChats = [];
-           while($chat = array_shift($result)) {
+           while($chat = array_shift($result)) {  //used to check who is the current user
                
                if($session_id == $chat['sent_by']) {
                   $chat['sent_by'] = 'self';
