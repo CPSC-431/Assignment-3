@@ -12,15 +12,17 @@ var pollServer = function() {
 	const root = document.documentElement;
             
             if(this.sent_by == 'self') {
-                chatBubble = $('<div class="row bubble-sent pull-right">' + 
-                               this.chat_username + this.message + 
+                var colorStyle = '<div class="row bubble-sent pull-right" style= "background: #' 
+                + this.color + '; border-color: #' + this.color + '; --color: #' + this.color + '; color: white">';
+                chatBubble = $(colorStyle +
+                               'me: ' + this.message +
                                '</div><div class="clearfix"></div>');
             } else {
-                chatBubble = $('<div class="row bubble-recv">' + 
-                               this.chat_username + this.message + 
-                               '</div><div class="clearfix"></div>');
-            }
-            
+                var cstyle = '<div class="row bubble-recv" style="background: #'
+                + this.color + '; --color: #' + this.color + '; color: white">';
+                chatBubble = $(cstyle + this.chat_username + ": " + this.message + '</div><div class="clearfix"></div>');
+							   
+            }            
             $('#chatPanel').append(chatBubble);
         });
         
@@ -42,7 +44,9 @@ $('#sendMessageBtn').on('click', function(event) {
     
     var message = $('#chatMessage').val();
     var chatUsername = $('#chatUsername').val();
-    var color = $('#color').val();
+
+    let params = new URLSearchParams(location.search);
+    var color = params.get('color');
     
     $.post('chat.php', {
         'message' : message,
