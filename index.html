@@ -18,14 +18,13 @@
         <!-- data is send thru url -->
         <form action="chat.html" method="GET">
             <div class="form-group row">
-                <label for="chat_username" class="col-sm-2 col-form-label">Your Name:</label>
+                <label for="chatUsername">Username/Nickname:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="chat_username" name="chat_username" placeholder="Name">
-                    <!-- randome color is sent here -->
+                    <input type="text" class="form-control" name="chatUsername" id="chatUsername" placeholder="Nickname">                     
                     <input type="hidden" id="color" name="color" value="123">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary has-spinner col-sm-2">
+            <button type="submit" id="startBtn" name="startBtn" class="btn btn-primary has-spinner col-sm-2">
                 <span class="spinner"><i class="icon-spin icon-refresh"></i></span>
                 Start
             </button>
