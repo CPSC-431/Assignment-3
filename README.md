@@ -5,7 +5,7 @@
 - Emiliano Arranaga | CWID: 888006756
 
 ## Project URL(s):
-- ecs.fullerton.edu/~cs431s41/chat/index.html
+- http://ecs.fullerton.edu/~cs431s41/Assignment3
 
 ## Contribution's:
 - Emiliano - Error checking, edits to chat.php file, edits to database. 
