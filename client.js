@@ -1,5 +1,5 @@
 var pollServer = function() {
-    $.get('http://ecs.fullerton.edu/~cs431s41/chat/chat.php', function(result) {
+    $.get('chat.php', function(result) {
         
         if(!result.success) {
             console.log("Error polling server for new messages!");
@@ -13,11 +13,11 @@ var pollServer = function() {
             
             if(this.sent_by == 'self') {
                 chatBubble = $('<div class="row bubble-sent pull-right">' + 
-                               this.message + 
+                               this.chat_username + this.message + 
                                '</div><div class="clearfix"></div>');
             } else {
                 chatBubble = $('<div class="row bubble-recv">' + 
-                               this.message + 
+                               this.chat_username + this.message + 
                                '</div><div class="clearfix"></div>');
             }
             
@@ -36,16 +36,17 @@ $(document).on('ready', function() {
     });
 });
 
+
 $('#sendMessageBtn').on('click', function(event) {
     event.preventDefault();
     
     var message = $('#chatMessage').val();
-    var chat_username = $('#chat_username').val();
+    var chatUsername = $('#chatUsername').val();
     var color = $('#color').val();
     
     $.post('chat.php', {
         'message' : message,
-        'chat_username' : chat_username,
+        'chatUsername' : chatUsername,
         'color' : color
     }, function(result) {
         
