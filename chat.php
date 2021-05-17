@@ -27,6 +27,7 @@ function get_result( $Statement ) {
     }
     return $RESULT;
 }
+
 try { 
     $currentTime = time();
     $session_id = session_id();    
@@ -37,14 +38,17 @@ try {
            $query = "SELECT * FROM chatlog WHERE date_created >= ".$lastPoll;
            $stmt = $db->prepare($query);
            $stmt->execute();
-           $stmt->bind_result($id, $message, $session_id, $date_created, $chat_username, $color);
+           $stmt->bind_result($id, $message, $session_id, $date_created, $chatUsername, $color);
            $result = get_result( $stmt);
            $newChats = [];
            while($chat = array_shift($result)) {
                
-               if($session_id == $chat['session_id']) {
-                  $chat['chat_username'] = 'self';
-               }              
+               if($session_id == $chat['sent_by']) {
+                  $chat['sent_by'] = 'self';
+               } else {
+                  $chat['sent_by'] = 'other';
+               }
+          
                $newChats[] = $chat;
             }
            $_SESSION['last_poll'] = $currentTime;
@@ -55,15 +59,15 @@ try {
            ]);
            exit;
         case 'send':
-            $chat_username = isset($_POST['chat_username']) ? $_POST['chat_username'] : '';
-            $chat_username = strip_tags($chat_username); 
+            $chatUsername = isset($_POST['chatUsername']) ? $_POST['chatUsername'] : '';
+            $chatUsername = strip_tags($chatUsername); 
             $message = isset($_POST['message']) ? $_POST['message'] : '';            
             $message = strip_tags($message);
                         
             $color = isset($_POST['color']) ? $_POST['color'] : '';
-            $query = "INSERT INTO chatlog (message, session_id, date_created, chat_username, color) VALUES(?, ?, ?, ?, ?)";
+            $query = "INSERT INTO chatlog (message, sent_by, date_created, chat_username, color) VALUES(?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->bind_param('ssiss', $message, $session_id, $currentTime, $chat_username, $color); 
+            $stmt->bind_param('ssiss', $message, $session_id, $currentTime, $chatUsername, $color); 
             $stmt->execute(); 
             print json_encode(['success' => true]);
             exit;
